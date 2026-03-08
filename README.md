@@ -15,6 +15,24 @@ Plataforma inteligente de planejamento e acompanhamento de dietas com IA.
 - [08 - Segurança](docs/08-SECURITY.md)
 - [09 - Roadmap](docs/09-ROADMAP.md)
 
+### Engineering Standards
+- [📘 README - Engineering Standards](docs/INFRASTRUCTURE/README-ENGINEERING-STANDARDS.md) (START HERE!)
+- [Git Workflow](docs/INFRASTRUCTURE/GIT-WORKFLOW.md)
+- [Commit Standards](docs/INFRASTRUCTURE/COMMIT-STANDARDS.md)
+- [PR Standards](docs/INFRASTRUCTURE/PR-STANDARDS.md)
+- [Testing Strategy](docs/INFRASTRUCTURE/TESTING-STRATEGY.md)
+- [Coding Standards](docs/INFRASTRUCTURE/CODING-STANDARDS.md)
+- [**Code Styling & Linting**](docs/INFRASTRUCTURE/CODE-STYLING-LINTING.md) 🆕
+- [**UI/UX Design System**](docs/INFRASTRUCTURE/UI-UX-DESIGN-SYSTEM.md) 🆕
+- [Development Workflow](docs/INFRASTRUCTURE/DEVELOPMENT-WORKFLOW.md)
+- [Issue Templates](docs/INFRASTRUCTURE/ISSUE-TEMPLATES.md)
+
+### Phase 2 - Implementation
+- [📋 FASE-2 Plan](docs/FASE-2-PLAN.md) - 12-week roadmap
+- [📊 FASE-2 Dashboard](docs/FASE-2/README.md) - Progress tracking
+- [🔐 Auth Service Spec](docs/FASE-2/AUTH-SERVICE.md) - First service
+- [⚙️ Microservice Scaffolding Skill](docs/SKILLS/MICROSERVICE-SCAFFOLDING.skill.md)
+
 ### RFCs (Request for Comments)
 - [RFC-001: Sincronização de Macros](rfc/RFC-001-MACRO-SYNC.md)
 - [RFC-002: Pipeline de IA para Alimentos](rfc/RFC-002-AI-FOOD-PIPELINE.md)
@@ -66,17 +84,87 @@ Todos os microsserviços têm repositórios separados:
 
 ## Fases do Projeto
 
-### Fase 1: Planejamento Estratégico e Arquitetura (1-2 semanas)
-Documentação completa, validação de arquitetura, decisões técnicas.
+### Fase 1: Planejamento Estratégico e Arquitetura (1-2 semanas) ✅ COMPLETO
+Documentação completa, validação de arquitetura, decisões técnicas, engineering standards.
 
-### Fase 2: Preparação e Estrutura de Repositórios (1 semana)
-Setup de repos para cada microsserviço, documentação específica.
+### Fase 2: Implementação de Microsserviços (12 semanas) 🏗️ EM ANDAMENTO
+Desenvolvimento dos 10 microsserviços + mobile app. Ver [FASE-2-PLAN.md](docs/FASE-2-PLAN.md).
 
-### Fase 3: Desenvolvimento Incremental (8-12 semanas)
-Desenvolvimento dos microsserviços em ordem de dependência.
-
-### Fase 4: Deploy e Lançamento (2-3 semanas)
+### Fase 3: Deploy e Lançamento (2-3 semanas)
 Infraestrutura, CI/CD, monitoramento, testes finais.
+
+---
+
+## 🚀 Quick Start
+
+### Desenvolvedores
+
+**Backend Team**:
+```bash
+# 1. Instalar ferramentas
+brew install openjdk@17 gradle
+
+# 2. Setup git hooks
+npm install
+npm run prepare
+
+# 3. Verificar code style
+./gradlew ktlintCheck
+./gradlew ktlintFormat  # Auto-fix
+```
+
+**Frontend Team**:
+```bash
+# 1. Instalar dependências
+cd mobile
+npm install
+
+# 2. Setup git hooks (já configurado na raiz)
+# npm install (já feito no passo 1)
+
+# 3. Verificar code style
+npm run lint
+npm run format  # Auto-fix
+npm run type-check
+```
+
+### Time de Desenvolvimento
+
+**Onboarding Path** (1 semana):
+1. Ler [README-ENGINEERING-STANDARDS.md](docs/INFRASTRUCTURE/README-ENGINEERING-STANDARDS.md) (30 min)
+2. Ler standards relevantes ao seu papel (Backend, Mobile, DevOps - ~2h)
+3. Setup ambiente local (git hooks, linters, IDE - 1h)
+4. Explorar código base do primeiro serviço (Auth Service - 2h)
+5. Fazer primeiro commit seguindo padrões
+
+---
+
+## 🔧 Automação & Qualidade
+
+### Linting Automático
+
+✅ **Pre-commit Hooks**:
+- ktlint auto-format (Backend)
+- ESLint + Prettier (Frontend)
+- commitlint (validação de mensagens)
+
+✅ **GitHub Actions**:
+- Lint check em todos os PRs
+- Auto-format em feature branches
+- Type checking (TypeScript)
+- Relatórios de qualidade
+
+### Code Quality Metrics
+
+| Métrica | Target | Enforcement |
+|---------|--------|-------------|
+| Code Coverage | ≥ 80% | CI/CD bloqueio |
+| ktlint | 0 issues | Pre-commit |
+| ESLint | 0 errors | Pre-commit |
+| TypeScript | 0 type errors | CI/CD |
+| Detekt | 0 issues | CI/CD warning |
+
+---
 
 ## Contato e Perguntas
 

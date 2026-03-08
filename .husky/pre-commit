@@ -1,0 +1,40 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks..."
+echo ""
+
+# Backend: ktlint auto-format
+if [ -f "./gradlew" ]; then
+  echo "📦 [Backend] Running ktlint format..."
+  ./gradlew ktlintFormat --quiet
+  
+  if [ $? -ne 0 ]; then
+    echo "❌ [Backend] ktlint failed. Please fix errors and try again."
+    exit 1
+  fi
+  
+  # Stage formatted files
+  git add -u
+  
+  echo "✅ [Backend] ktlint passed"
+  echo ""
+fi
+
+# Frontend: lint-staged
+if [ -d "./mobile" ]; then
+  echo "📱 [Frontend] Running lint-staged..."
+  cd mobile && npx lint-staged
+  
+  if [ $? -ne 0 ]; then
+    echo "❌ [Frontend] Linting failed. Please fix errors and try again."
+    exit 1
+  fi
+  
+  echo "✅ [Frontend] lint-staged passed"
+  echo ""
+  cd ..
+fi
+
+echo "✅ All pre-commit checks passed!"
+echo ""

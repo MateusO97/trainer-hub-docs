@@ -1,0 +1,32 @@
+{
+  "name": "trainer-hub-docs",
+  "version": "2.0.0",
+  "description": "Documentation and engineering standards for Trainer Hub",
+  "private": true,
+  "scripts": {
+    "prepare": "husky install",
+    "lint": "echo 'Run ./gradlew ktlintCheck for backend or cd mobile && npm run lint for frontend'",
+    "format": "echo 'Run ./gradlew ktlintFormat for backend or cd mobile && npm run format for frontend'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MateusO97/trainer-hub-docs.git"
+  },
+  "keywords": [
+    "trainer-hub",
+    "documentation",
+    "architecture",
+    "microservices"
+  ],
+  "author": "Trainer Hub Team",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
+    "husky": "^8.0.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

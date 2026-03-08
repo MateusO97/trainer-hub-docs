@@ -1,0 +1,25 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "📝 Checking commit message format..."
+
+npx --no -- commitlint --edit "$1"
+
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "❌ Commit message does not follow Conventional Commits format"
+  echo ""
+  echo "Format: <type>(<scope>): <subject>"
+  echo ""
+  echo "Types: feat, fix, docs, style, refactor, perf, test, chore, ci, build"
+  echo ""
+  echo "Examples:"
+  echo "  feat(auth): add OAuth2 login flow"
+  echo "  fix(meal): correct macro calculation"
+  echo "  docs(readme): update installation steps"
+  echo ""
+  echo "See COMMIT-STANDARDS.md for more details."
+  exit 1
+fi
+
+echo "✅ Commit message format is valid"
