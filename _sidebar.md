@@ -3,6 +3,7 @@
 * [🏠 Início](/)
 * [📚 Repositórios](/REPOSITORIES.md)
 * [🗺️ Mapa do Ecossistema](/ECOSYSTEM-MAP.md)
+* [🎨 Guia de Design](/DESIGN-GUIDE.md)
 
 **📐 Arquitetura**
 
@@ -51,7 +52,12 @@
 
 * [Microservice Scaffolding](/docs/SKILLS/MICROSERVICE-SCAFFOLDING.skill.md)
 
-**📦 Repositórios**
+**🔧 Configuração & Deploy**
+
+* [Docsify Setup](/DOCSIFY-SETUP.md)
+* [Troubleshooting](/TROUBLESHOOTING.md)
+
+**📦 Repositórios Externos**
 
 * [🔐 Auth Service](https://github.com/MateusO97/trainer-hub-auth-service)
 * [👤 User Service](https://github.com/MateusO97/trainer-hub-user-service)

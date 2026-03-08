@@ -7,77 +7,600 @@
   <meta name="description" content="Plataforma inteligente de planejamento e acompanhamento de dietas com IA">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   
-  <!-- Theme -->
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <!-- Theme: Dark mode support -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" 
+        title="vue" 
+        media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/themes/dark.css"
+        title="dark"
+        media="(prefers-color-scheme: dark)">
   
   <!-- Custom CSS -->
   <style>
+    /* ============================================
+       Modern Design System - Inspired by Docusaurus & Material
+       ============================================ */
+    
     :root {
+      /* Primary Colors */
       --theme-color: #6366f1;
       --theme-color-dark: #4f46e5;
+      --theme-color-light: #818cf8;
+      
+      /* Semantic Colors */
+      --success-color: #10b981;
+      --warning-color: #f59e0b;
+      --danger-color: #ef4444;
+      --info-color: #3b82f6;
+      
+      /* Neutral Colors */
+      --bg-color: #ffffff;
+      --text-color: #1f2937;
+      --text-secondary: #6b7280;
+      --border-color: #e5e7eb;
+      
+      /* Shadows */
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+      
+      /* Border Radius */
+      --radius-sm: 0.375rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      
+      /* Spacing */
+      --spacing-xs: 0.25rem;
+      --spacing-sm: 0.5rem;
+      --spacing-md: 1rem;
+      --spacing-lg: 1.5rem;
+      --spacing-xl: 2rem;
     }
     
-    .app-name-link img {
-      width: 40px;
-      margin-right: 10px;
+    /* Dark Mode Variables */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-color: #111827;
+        --text-color: #f9fafb;
+        --text-secondary: #9ca3af;
+        --border-color: #374151;
+      }
     }
+    
+    /* ============================================
+       Typography Enhancements
+       ============================================ */
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    .markdown-section h1,
+    .markdown-section h2,
+    .markdown-section h3,
+    .markdown-section h4 {
+      font-weight: 700;
+      letter-spacing: -0.025em;
+    }
+    
+    .markdown-section h1 {
+      font-size: 2.5rem;
+      margin-top: 2rem;
+      border-bottom: 2px solid var(--theme-color);
+      padding-bottom: 0.5rem;
+    }
+    
+    .markdown-section h2 {
+      font-size: 2rem;
+      margin-top: 3rem;
+      padding-left: 0.75rem;
+      border-left: 4px solid var(--theme-color);
+    }
+    
+    .markdown-section h3 {
+      font-size: 1.5rem;
+      color: var(--theme-color);
+    }
+    
+    /* ============================================
+       Cover Page Design
+       ============================================ */
+    
+    .cover-main {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cover-main::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
+      animation: pulse 4s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    .cover-main > p:last-child a {
+      display: inline-block;
+      background-color: white;
+      color: var(--theme-color);
+      border-radius: var(--radius-lg);
+      padding: 14px 32px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-lg);
+      margin: 0 0.5rem;
+    }
+    
+    .cover-main > p:last-child a:first-child {
+      background-color: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+    
+    .cover-main > p:last-child a:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3);
+    }
+    
+    .cover-main > p:last-child a:first-child:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    /* ============================================
+       Sidebar Modern Design
+       ============================================ */
     
     .sidebar {
-      padding-top: 0;
+      background-color: var(--bg-color);
+      border-right: 1px solid var(--border-color);
+      padding-top: var(--spacing-md);
     }
     
     .sidebar > h1 {
-      margin: 0 auto 1rem;
-      font-size: 1.5rem;
-      font-weight: 300;
+      margin: 0 auto 1.5rem;
+      font-size: 1.75rem;
+      font-weight: 800;
       text-align: center;
       background: linear-gradient(135deg, var(--theme-color) 0%, var(--theme-color-dark) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      padding: var(--spacing-md);
     }
+    
+    .sidebar-nav ul {
+      padding-left: 0;
+    }
+    
+    .sidebar-nav > ul > li {
+      margin: 0;
+      padding: 0;
+    }
+    
+    .sidebar-nav > ul > li > p {
+      font-weight: 700;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      padding: var(--spacing-md) var(--spacing-lg);
+      margin: var(--spacing-md) 0 var(--spacing-sm) 0;
+    }
+    
+    .sidebar-nav ul li a {
+      display: block;
+      padding: var(--spacing-sm) var(--spacing-lg);
+      border-radius: var(--radius-md);
+      margin: 2px var(--spacing-md);
+      transition: all 0.2s ease;
+      color: var(--text-color);
+      text-decoration: none;
+    }
+    
+    .sidebar-nav ul li a:hover {
+      background-color: rgba(99, 102, 241, 0.1);
+      color: var(--theme-color);
+      transform: translateX(4px);
+    }
+    
+    .sidebar-nav ul li.active > a {
+      background-color: var(--theme-color);
+      color: white;
+      font-weight: 600;
+    }
+    
+    /* ============================================
+       Content Area Enhancements
+       ============================================ */
     
     .markdown-section {
       max-width: 900px;
+      padding: var(--spacing-xl);
     }
     
-    .cover-main {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    /* Code Blocks */
+    .markdown-section pre {
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
     }
     
-    .cover-main > p:last-child a {
+    .markdown-section code {
+      border-radius: var(--radius-sm);
+      padding: 2px 6px;
+      background-color: rgba(99, 102, 241, 0.1);
+      color: var(--theme-color-dark);
+      font-size: 0.9em;
+    }
+    
+    .markdown-section pre code {
+      background-color: transparent;
+      color: inherit;
+      padding: 0;
+    }
+    
+    /* Tables */
+    .markdown-section table {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .markdown-section table thead {
       background-color: var(--theme-color);
-      border-radius: 8px;
-      padding: 12px 24px;
-      font-weight: 600;
-      transition: all 0.3s ease;
+      color: white;
     }
     
-    .cover-main > p:last-child a:hover {
-      background-color: var(--theme-color-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    .markdown-section table tr:nth-child(even) {
+      background-color: rgba(99, 102, 241, 0.05);
     }
     
-    /* Badge styles */
+    /* Blockquotes */
+    .markdown-section blockquote {
+      border-left: 4px solid var(--theme-color);
+      background-color: rgba(99, 102, 241, 0.05);
+      border-radius: var(--radius-md);
+      padding: var(--spacing-md) var(--spacing-lg);
+      margin: var(--spacing-lg) 0;
+    }
+    
+    /* Links */
+    .markdown-section a {
+      color: var(--theme-color);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s ease;
+    }
+    
+    .markdown-section a:hover {
+      border-bottom-color: var(--theme-color);
+    }
+    
+    /* ============================================
+       Badges & Labels
+       ============================================ */
+    
     .badge {
       display: inline-block;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 0.85em;
-      font-weight: 600;
-      margin-left: 8px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-left: var(--spacing-sm);
     }
     
     .badge-dev {
-      background-color: #fbbf24;
-      color: #78350f;
+      background-color: #fef3c7;
+      color: #92400e;
     }
     
     .badge-new {
-      background-color: #34d399;
-      color: #064e3b;
+      background-color: #d1fae5;
+      color: #065f46;
     }
+    
+    .badge-pending {
+      background-color: #e0e7ff;
+      color: #3730a3;
+    }
+    
+    /* ============================================
+       Search Bar Enhancement
+       ============================================ */
+    
+    .search {
+      margin-bottom: var(--spacing-lg);
+      padding: 0 var(--spacing-lg);
+    }
+    
+    .search input {
+      border: 2px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-md);
+      transition: all 0.2s ease;
+      font-size: 0.95rem;
+    }
+    
+    .search input:focus {
+      border-color: var(--theme-color);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+      outline: none;
+    }
+    
+    /* ============================================
+       Progress Bar
+       ============================================ */
+    
+    .progress {
+      background-color: var(--theme-color) !important;
+      height: 3px !important;
+    }
+    
+    /* ============================================
+       Responsive Design
+       ============================================ */
+    
+    @media screen and (max-width: 768px) {
+      .markdown-section {
+        padding: var(--spacing-md);
+      }
+      
+      .markdown-section h1 {
+        font-size: 2rem;
+      }
+      
+      .markdown-section h2 {
+        font-size: 1.5rem;
+      }
+    }
+    
+    /* ============================================
+       Custom Alert Boxes
+       ============================================ */
+    
+    .markdown-section .alert {
+      padding: var(--spacing-md) var(--spacing-lg);
+      border-radius: var(--radius-md);
+      margin: var(--spacing-lg) 0;
+      border-left: 4px solid;
+    }
+    
+    .markdown-section .alert-info {
+      background-color: rgba(59, 130, 246, 0.1);
+      border-color: var(--info-color);
+      color: #1e40af;
+    }
+    
+    .markdown-section .alert-success {
+      background-color: rgba(16, 185, 129, 0.1);
+      border-color: var(--success-color);
+      color: #065f46;
+    }
+    
+    .markdown-section .alert-warning {
+      background-color: rgba(245, 158, 11, 0.1);
+      border-color: var(--warning-color);
+      color: #92400e;
+    }
+    
+    .markdown-section .alert-danger {
+      background-color: rgba(239, 68, 68, 0.1);
+      border-color: var(--danger-color);
+      color: #991b1b;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">Carregando...</div>
+  
+  <script>
+    window.$docsify = {
+      name: 'TrAIner Hub',
+      repo: 'MateusO97/trainer-hub-docs',
+      loadSidebar: true,
+      loadNavbar: false,
+      coverpage: true,
+      onlyCover: false,
+      
+      // Auto sidebar from README
+      subMaxLevel: 3,
+      auto2top: true,
+      
+      // Search - Enhanced
+      search: {
+        maxAge: 86400000,
+        paths: 'auto',
+        placeholder: '🔍 Buscar na documentação...',
+        noData: '😞 Nenhum resultado encontrado',
+        depth: 6,
+        namespace: 'trainer-hub-docs',
+        hideOtherSidebarContent: false,
+      },
+      
+      // Pagination
+      pagination: {
+        previousText: '← Anterior',
+        nextText: 'Próximo →',
+        crossChapter: true,
+        crossChapterText: true,
+      },
+      
+      // Copy code
+      copyCode: {
+        buttonText: '📋 Copiar',
+        errorText: '❌ Erro',
+        successText: '✅ Copiado!',
+      },
+      
+      // Tabs
+      tabs: {
+        persist: true,
+        sync: true,
+        theme: 'material',
+        tabComments: true,
+        tabHeadings: true
+      },
+      
+      // Markdown extensions with Mermaid
+      markdown: {
+        renderer: {
+          code: function(code, lang) {
+            if (lang === "mermaid") {
+              return '<div class="mermaid">' + code + '</div>';
+            }
+            return this.origin.code.apply(this, arguments);
+          }
+        }
+      },
+      
+      // Alias for routing
+      alias: {
+        '/.*/_sidebar.md': '/_sidebar.md'
+      },
+      
+      // Count
+      count: {
+        countable: true,
+        fontsize:'0.9em',
+        color:'rgb(90,90,90)',
+        language:'english'
+      },
+      
+      // Plugins
+      plugins: [
+        // Edit on GitHub
+        function(hook, vm) {
+          hook.beforeEach(function(html) {
+            const url = 'https://github.com/MateusO97/trainer-hub-docs/blob/master/' + vm.route.file;
+            const editHtml = '<div style="text-align: right; margin-bottom: 1rem;">' +
+              '<a href="' + url + '" target="_blank" style="text-decoration: none;">' +
+              '📝 Editar esta página no GitHub</a></div>';
+            return editHtml + html;
+          });
+        },
+        
+        // Footer
+        function(hook, vm) {
+          hook.afterEach(function(html, next) {
+            const footer = `
+              <hr style="margin-top: 3rem; border: none; border-top: 1px solid var(--border-color);"/>
+              <footer style="text-align: center; padding: 2rem 0; color: var(--text-secondary);">
+                <p style="margin: 0.5rem 0;">
+                  <strong>TrAIner Hub</strong> - Plataforma inteligente de dietas com IA
+                </p>
+                <p style="margin: 0.5rem 0; font-size: 0.9rem;">
+                  Feito com ❤️ por 
+                  <a href="https://github.com/MateusO97" target="_blank" style="color: var(--theme-color);">
+                    Mateus O. Barbosa
+                  </a>
+                </p>
+                <p style="margin: 0.5rem 0; font-size: 0.85rem;">
+                  <a href="https://github.com/MateusO97/trainer-hub-docs" target="_blank" style="color: var(--text-secondary);">
+                    GitHub
+                  </a> | 
+                  <a href="https://github.com/MateusO97/trainer-hub-docs/issues" target="_blank" style="color: var(--text-secondary);">
+                    Issues
+                  </a> | 
+                  <span>Última atualização: ${new Date().toLocaleDateString('pt-BR')}</span>
+                </p>
+              </footer>
+            `;
+            next(html + footer);
+          });
+        },
+        
+        // Custom alerts
+        function(hook, vm) {
+          hook.afterEach(function(html, next) {
+            // Convert > [!NOTE] to alert boxes
+            html = html.replace(/>\s*\[!NOTE\](.*?)<\/blockquote>/gs, 
+              '<div class="alert alert-info">$1</div>');
+            html = html.replace(/>\s*\[!TIP\](.*?)<\/blockquote>/gs, 
+              '<div class="alert alert-success">$1</div>');
+            html = html.replace(/>\s*\[!WARNING\](.*?)<\/blockquote>/gs, 
+              '<div class="alert alert-warning">$1</div>');
+            html = html.replace(/>\s*\[!DANGER\](.*?)<\/blockquote>/gs, 
+              '<div class="alert alert-danger">$1</div>');
+            next(html);
+          });
+        }
+      ]
+    }
+  </script>
+  
+  <!-- Docsify core -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
+  
+  <!-- Search plugin -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  
+  <!-- Copy code plugin -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
+  
+  <!-- Pagination plugin -->
+  <script src="//cdn.jsdelivr.net/npm/docsify-pagination@2/dist/docsify-pagination.min.js"></script>
+  
+  <!-- Zoom image plugin -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+  
+  <!-- Tabs plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/docsify-tabs@1"></script>
+  
+  <!-- Count plugin (reading time) -->
+  <script src="//unpkg.com/docsify-count/dist/countable.js"></script>
+  
+  <!-- Progress bar -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/progress.min.js"></script>
+  
+  <!-- Mermaid -->
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ 
+      startOnLoad: true,
+      theme: 'default',
+      themeVariables: {
+        primaryColor: '#6366f1',
+        primaryTextColor: '#fff',
+        primaryBorderColor: '#4f46e5',
+        lineColor: '#6366f1',
+        secondaryColor: '#818cf8',
+        tertiaryColor: '#c7d2fe'
+      }
+    });
+    window.mermaid = mermaid;
+  </script>
+  
+  <!-- Syntax highlighting -->
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-kotlin.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-java.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-javascript.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-typescript.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-python.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-yaml.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-sql.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-markdown.min.js"></script>
+</body>
+</html>
+
     
     .badge-pending {
       background-color: #94a3b8;
