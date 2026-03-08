@@ -1,8 +1,13 @@
 # TrAIner Hub - Documentação
 
+> Plataforma inteligente de planejamento e acompanhamento de dietas com IA.
 
+Quick access to all repositories in the Trainer Hub ecosystem.
 
+**Maintainer**: Mateus de Oliveira Barbosa ([@MateusO97](https://github.com/MateusO97))  
+**Last Updated**: 8 de março de 2026
 
+---
 
 
 
@@ -290,50 +295,321 @@
 
 
 
+## 📚 Documentation & Standards
 
+### [📖 trainer-hub-docs](https://github.com/MateusO97/trainer-hub-docs) 
 
+**Central documentation repository**
 
+- Architecture decisions (ADRs)
+- Engineering standards & guidelines
+- API contracts & communication patterns
+- Phase 2 implementation roadmap
+- RFCs and technical specifications
 
+**Key Documents**:
+- [REPOSITORIES.md](https://github.com/MateusO97/trainer-hub-docs/blob/master/REPOSITORIES.md) - Complete ecosystem overview
+- [API-CONTRACTS.md](https://github.com/MateusO97/trainer-hub-docs/blob/master/docs/API-CONTRACTS.md) - Service communication contracts
+- [FASE-2-PLAN.md](https://github.com/MateusO97/trainer-hub-docs/blob/master/docs/FASE-2-PLAN.md) - 12-week implementation plan
 
+---
 
+## 🏗️ Backend Microservices
 
+### Wave 1 - Foundational Services (No Dependencies)
 
+#### [🔐 Auth Service](https://github.com/MateusO97/trainer-hub-auth-service)
 
+**Status**: 🚧 In Development | **Port**: 8081 | **Language**: Kotlin + Spring Boot
 
+**Features**:
+- Email + password authentication
+- OAuth2 (Google, Apple Sign-In)
+- JWT token generation (RS256)
+- Refresh token flow
+- Password reset
+- Role-based access control (4 roles)
+- Audit logging
 
+**Issues**: [11 functional requirements](https://github.com/MateusO97/trainer-hub-auth-service/issues)
 
+---
 
+#### [👤 User Service](https://github.com/MateusO97/trainer-hub-user-service)
 
+**Status**: 📝 Not Started | **Port**: 8082 | **Language**: Kotlin + Spring Boot
 
+**Features**:
+- User profile management (personal info, physical data)
+- User preferences (diet type, restrictions, allergies)
+- Goals & targets configuration
+- Notification settings
+- Activity level tracking
 
+**Dependencies**: Auth Service (token validation)
 
+---
 
+#### [🍎 Food DB Service](https://github.com/MateusO97/trainer-hub-food-db-service)
 
+**Status**: 📝 Not Started | **Port**: 8083 | **Language**: Kotlin + Spring Boot
 
+**Features**:
+- Food database (USDA, TACO, custom foods)
+- Advanced search (name, brand, category, barcode)
+- Nutritional information (macros, micros, vitamins, minerals)
+- Multiple serving units support
+- User-created custom foods
+- Food verification system
 
+**Dependencies**: Auth Service
 
+---
 
+### Wave 2 - Core Business Logic (Depends on Wave 1)
 
+#### [🍽️ Meal Service](https://github.com/MateusO97/trainer-hub-meal-service)
 
+**Status**: 📝 Not Started | **Port**: 8084 | **Language**: Kotlin + Spring Boot
 
+**Features**:
+- Meal logging (breakfast, lunch, dinner, snacks)
+- Photo upload & attachment
+- Meal plans (created by nutritionists)
+- Meal templates & favorites
+- Quick logging from recent meals
+- Scheduled meal reminders
 
+**Dependencies**: Auth Service, User Service, Food DB Service  
+**Events**: Publishes `meal.logged`, `meal.reminder`
 
+---
 
+#### [📊 Nutrition Service](https://github.com/MateusO97/trainer-hub-nutrition-service)
 
+**Status**: 📝 Not Started | **Port**: 8085 | **Language**: Kotlin + Spring Boot
 
+**Features**:
+- Nutritional goals calculation (BMR, TDEE, macros)
+- Daily nutritional summaries
+- Weekly/monthly reports
+- Macro distribution analysis
+- Adherence tracking
+- Micronutrient analysis
 
+**Dependencies**: Auth Service, User Service, Meal Service  
+**Events**: Consumes `meal.logged`
 
+---
 
+#### [📈 Tracking Service](https://github.com/MateusO97/trainer-hub-tracking-service)
 
+**Status**: 📝 Not Started | **Port**: 8086 | **Language**: Kotlin + Spring Boot
 
+**Features**:
+- Weight logging with trends
+- Body measurements (waist, chest, arms, etc.)
+- Progress photos
+- Goal progress tracking
+- Streaks & achievements
+- Progress reports & charts
 
+**Dependencies**: Auth Service, User Service  
+**Events**: Publishes `weight.logged`, consumes `meal.logged`
 
+---
 
+### Wave 3 - Advanced Features (Depends on Waves 1 & 2)
 
+#### [🤖 AI Service](https://github.com/MateusO97/trainer-hub-ai-service)
 
+**Status**: 📝 Not Started | **Port**: 8087 | **Language**: Python + FastAPI
 
+**Features**:
+- Meal recommendations (personalized suggestions)
+- Food photo recognition (ML models)
+- Portion size estimation
+- Goal achievement predictions
+- Nutritional pattern analysis
+- Anomaly detection
 
-**Maintainer**: Mateus de Oliveira Barbosa ([@MateusO97](https://github.com/MateusO97))**Last Updated**: 2024-03-08  ---All repositories: MIT License## 📄 License---See [Git Workflow](https://github.com/MateusO97/trainer-hub-docs/blob/master/docs/INFRASTRUCTURE/GIT-WORKFLOW.md) for details.- OpenAPI documentation updated- Minimum 80% test coverage- CI/CD must pass (linting, tests, build)- All PRs require code review- Conventional commits: `feat:`, `fix:`, `docs:`, `refactor:`Each repository follows the same standards:## 🤝 Contributing---- **Code Styling Guide**: [docs/INFRASTRUCTURE/CODE-STYLING-LINTING.md](https://github.com/MateusO97/trainer-hub-docs/blob/master/docs/INFRASTRUCTURE/CODE-STYLING-LINTING.md)- **UI/UX Design System**: [docs/INFRASTRUCTURE/UI-UX-DESIGN-SYSTEM.md](https://github.com/MateusO97/trainer-hub-docs/blob/master/docs/INFRASTRUCTURE/UI-UX-DESIGN-SYSTEM.md)- **Engineering Standards**: [docs/INFRASTRUCTURE/README-ENGINEERING-STANDARDS.md](https://github.com/MateusO97/trainer-hub-docs/blob/master/docs/INFRASTRUCTURE/README-ENGINEERING-STANDARDS.md)- **API Contracts**: [docs/API-CONTRACTS.md](https://github.com/MateusO97/trainer-hub-docs/blob/master/docs/API-CONTRACTS.md)- **Microservices Spec**: [docs/05-MICROSERVICES.md](https://github.com/MateusO97/trainer-hub-docs/blob/master/docs/05-MICROSERVICES.md)- **Architecture Overview**: [docs/01-VISION.md](https://github.com/MateusO97/trainer-hub-docs/blob/master/docs/01-VISION.md)## 📖 Documentation Resources---```open https://github.com/MateusO97?tab=repositories&q=trainer-hub```bash### View All Repositories```git clone https://github.com/MateusO97/trainer-hub-mobile.git# Clone mobile appgit clone https://github.com/MateusO97/trainer-hub-gateway.gitgit clone https://github.com/MateusO97/trainer-hub-notification-service.gitgit clone https://github.com/MateusO97/trainer-hub-ai-service.gitgit clone https://github.com/MateusO97/trainer-hub-tracking-service.gitgit clone https://github.com/MateusO97/trainer-hub-nutrition-service.gitgit clone https://github.com/MateusO97/trainer-hub-meal-service.gitgit clone https://github.com/MateusO97/trainer-hub-food-db-service.gitgit clone https://github.com/MateusO97/trainer-hub-user-service.gitgit clone https://github.com/MateusO97/trainer-hub-auth-service.git# Clone backend servicesgit clone https://github.com/MateusO97/trainer-hub-docs.git# Clone documentation```bash### Clone All Repositories## 🔗 Quick Commands---| Wave 5 | Mobile App | 📝 Not Started | Weeks 11-15 || Wave 4 | Gateway | 📝 Not Started | Weeks 9-10 || Wave 3 | AI, Notification | 📝 Not Started | Weeks 6-8 || Wave 2 | Meal, Nutrition, Tracking | 📝 Not Started | Weeks 3-5 || Wave 1 | Auth, User, Food DB | 🚧 Auth In Dev | Weeks 1-2 ||------|----------|--------|----------|| Wave | Services | Status | Timeline |## 📊 Implementation Status---```Meal Service     → meal.reminder   → NotificationAI Service       → goal.achieved   → NotificationTracking Service → weight.logged   → AI, NotificationMeal Service     → meal.logged     → Nutrition, Tracking, AI```### Asynchronous (RabbitMQ Events)```Gateway → Auth Service (token validation)Mobile App → Gateway → Backend Microservices```### Synchronous (REST APIs)## 🔄 Communication Patterns---- React Native Charts- React Native Camera- React Navigation- Redux Toolkit- TypeScript- React Native 0.73**Tech Stack**:**Dependencies**: Gateway Service (all API calls)- Offline mode (cached data)- Dark mode support- Meal reminders- Push notifications- Progress photos- Weight tracking with charts- Nutritional goals & tracking- AI food recognition- Meal logging with camera- Food search & database- Profile management- User authentication (email, Google, Apple Sign-In)**Features**:Cross-platform mobile application.**Status**: 📝 Not Started | **Platform**: iOS & Android | **Language**: React Native + TypeScript#### [📱 Mobile App](https://github.com/MateusO97/trainer-hub-mobile)### Wave 5 - Client Application (Depends on Gateway)---```/api/v1/notifications/** → Notification Service (8088)/api/v1/ai/**         → AI Service (8087)/api/v1/tracking/**   → Tracking Service (8086)/api/v1/nutrition/**  → Nutrition Service (8085)/api/v1/meals/**      → Meal Service (8084)/api/v1/foods/**      → Food DB Service (8083)/api/v1/users/**      → User Service (8082)/api/v1/auth/**       → Auth Service (8081)```**Routes**:**Dependencies**: Auth Service (token validation)- API versioning support- Circuit breaker (Resilience4j)- Request/response logging- CORS configuration- Rate limiting (per user, per IP)- JWT token validation (via Auth Service)- API routing to backend microservices**Features**:Single entry point for all API requests with routing and authentication.**Status**: 📝 Not Started | **Port**: 8080 | **Language**: Kotlin + Spring Cloud Gateway#### [🌐 API Gateway](https://github.com/MateusO97/trainer-hub-gateway)### Wave 4 - Infrastructure (Depends on All Backend Services)---**Events**: Consumes `meal.reminder`, `weight.logged`, `goal.achieved`**Dependencies**: Auth Service, User Service- Meal reminders (scheduled jobs)- User notification preferences- Notification history & read receipts- Notification scheduling- SMS notifications (Twilio)- Email notifications (SendGrid/AWS SES)- Push notifications (iOS, Android via FCM)**Features**:Push notifications, emails, and SMS delivery.**Status**: 📝 Not Started | **Port**: 8088 | **Language**: Kotlin + Spring Boot#### [🔔 Notification Service](https://github.com/MateusO97/trainer-hub-notification-service)---**Events**: Publishes `goal.achieved`, consumes `meal.logged`, `weight.logged`**Dependencies**: Auth Service, User Service, Food DB Service, Meal Service, Tracking Service- Anomaly detection- Nutritional pattern analysis- Goal achievement predictions- Portion size estimation- Food photo recognition (ML models)- Meal recommendations (personalized suggestions)**Features**:AI-powered recommendations and food photo recognition.**Status**: 📝 Not Started | **Port**: 8087 | **Language**: Python + FastAPI#### [🤖 AI Service](https://github.com/MateusO97/trainer-hub-ai-service)### Wave 3 - Advanced Features (Depends on Waves 1 & 2)---**Events**: Publishes `weight.logged`, consumes `meal.logged`**Dependencies**: Auth Service, User Service- Progress reports & charts- Streaks & achievements- Goal progress tracking- Progress photos- Body measurements (waist, chest, arms, etc.)- Weight logging with trends**Features**:Weight tracking, body measurements, and progress reporting.**Status**: 📝 Not Started | **Port**: 8086 | **Language**: Kotlin + Spring Boot#### [📈 Tracking Service](https://github.com/MateusO97/trainer-hub-tracking-service)---**Events**: Consumes `meal.logged`**Dependencies**: Auth Service, User Service, Meal Service- Micronutrient analysis- Adherence tracking- Macro distribution analysis- Weekly/monthly reports- Daily nutritional summaries- Nutritional goals calculation (BMR, TDEE, macros)**Features**:Nutritional analysis, goals calculation, and summaries.**Status**: 📝 Not Started | **Port**: 8085 | **Language**: Kotlin + Spring Boot#### [📊 Nutrition Service](https://github.com/MateusO97/trainer-hub-nutrition-service)---**Events**: Publishes `meal.logged`, `meal.reminder`**Dependencies**: Auth Service, User Service, Food DB Service- Scheduled meal reminders- Quick logging from recent meals- Meal templates & favorites- Meal plans (created by nutritionists)- Photo upload & attachment- Meal logging (breakfast, lunch, dinner, snacks)**Features**:Meal logging, planning, and tracking.**Status**: 📝 Not Started | **Port**: 8084 | **Language**: Kotlin + Spring Boot#### [🍽️ Meal Service](https://github.com/MateusO97/trainer-hub-meal-service)### Wave 2 - Core Business Logic (Depends on Wave 1)---**Dependencies**: Auth Service- Food verification system- User-created custom foods- Multiple serving units support- Nutritional information (macros, micros, vitamins, minerals)- Advanced search (name, brand, category, barcode)- Food database (USDA, TACO, custom foods)**Features**:Comprehensive food database with nutritional information.**Status**: 📝 Not Started | **Port**: 8083 | **Language**: Kotlin + Spring Boot#### [🍎 Food DB Service](https://github.com/MateusO97/trainer-hub-food-db-service)---**Dependencies**: Auth Service (token validation)- Activity level tracking- Notification settings- Goals & targets configuration- User preferences (diet type, restrictions, allergies)- User profile management (personal info, physical data)**Features**:User profiles, preferences, and settings management.**Status**: 📝 Not Started | **Port**: 8082 | **Language**: Kotlin + Spring Boot#### [👤 User Service](https://github.com/MateusO97/trainer-hub-user-service)---**Issues**: [11 functional requirements](https://github.com/MateusO97/trainer-hub-auth-service/issues)- Audit logging- Role-based access control (4 roles)- Password reset- Refresh token flow- JWT token generation (RS256)- OAuth2 (Google, Apple Sign-In)- Email + password authentication**Features**:Authentication & authorization service with OAuth2, JWT, and RBAC.**Status**: 🚧 In Development | **Port**: 8081 | **Language**: Kotlin + Spring Boot#### [🔐 Auth Service](https://github.com/MateusO97/trainer-hub-auth-service)### Wave 1 - Foundational Services (No Dependencies)## 🏗️ Backend Microservices---- [FASE-2-PLAN.md](https://github.com/MateusO97/trainer-hub-docs/blob/master/docs/FASE-2-PLAN.md) - 12-week implementation plan- [API-CONTRACTS.md](https://github.com/MateusO97/trainer-hub-docs/blob/master/docs/API-CONTRACTS.md) - Service communication contracts- [REPOSITORIES.md](https://github.com/MateusO97/trainer-hub-docs/blob/master/REPOSITORIES.md) - Complete ecosystem overview**Key Documents**:- RFCs and technical specifications- Phase 2 implementation roadmap- API contracts & communication patterns- Engineering standards & guidelines- Architecture decisions (ADRs)**Central documentation repository**### [📖 trainer-hub-docs](https://github.com/MateusO97/trainer-hub-docs) ## 📚 Documentation & Standards---Quick access to all repositories in the Trainer Hub ecosystem.Plataforma inteligente de planejamento e acompanhamento de dietas com IA.
+**Dependencies**: Auth Service, User Service, Food DB Service, Meal Service, Tracking Service  
+**Events**: Publishes `goal.achieved`, consumes `meal.logged`, `weight.logged`
+
+---
+
+#### [🔔 Notification Service](https://github.com/MateusO97/trainer-hub-notification-service)
+
+**Status**: 📝 Not Started | **Port**: 8088 | **Language**: Kotlin + Spring Boot
+
+**Features**:
+- Push notifications (iOS, Android via FCM)
+- Email notifications (SendGrid/AWS SES)
+- SMS notifications (Twilio)
+- Notification scheduling
+- Notification history & read receipts
+- User notification preferences
+- Meal reminders (scheduled jobs)
+
+**Dependencies**: Auth Service, User Service  
+**Events**: Consumes `meal.reminder`, `weight.logged`, `goal.achieved`
+
+---
+
+### Wave 4 - Infrastructure (Depends on All Backend Services)
+
+#### [🌐 API Gateway](https://github.com/MateusO97/trainer-hub-gateway)
+
+**Status**: 📝 Not Started | **Port**: 8080 | **Language**: Kotlin + Spring Cloud Gateway
+
+Single entry point for all API requests with routing and authentication.
+
+**Features**:
+- API routing to backend microservices
+- JWT token validation (via Auth Service)
+- Rate limiting (per user, per IP)
+- CORS configuration
+- Request/response logging
+- Circuit breaker (Resilience4j)
+- API versioning support
+
+**Routes**:
+```
+/api/v1/auth/**       → Auth Service (8081)
+/api/v1/users/**      → User Service (8082)
+/api/v1/foods/**      → Food DB Service (8083)
+/api/v1/meals/**      → Meal Service (8084)
+/api/v1/nutrition/**  → Nutrition Service (8085)
+/api/v1/tracking/**   → Tracking Service (8086)
+/api/v1/ai/**         → AI Service (8087)
+/api/v1/notifications/** → Notification Service (8088)
+```
+
+**Dependencies**: Auth Service (token validation)
+
+---
+
+### Wave 5 - Client Application (Depends on Gateway)
+
+#### [📱 Mobile App](https://github.com/MateusO97/trainer-hub-mobile)
+
+**Status**: 📝 Not Started | **Platform**: iOS & Android | **Language**: React Native + TypeScript
+
+Cross-platform mobile application.
+
+**Features**:
+- User authentication (email, Google, Apple Sign-In)
+- Profile management
+- Food search & database
+- Meal logging with camera
+- AI food recognition
+- Nutritional goals & tracking
+- Weight tracking with charts
+- Progress photos
+- Push notifications
+- Meal reminders
+- Dark mode support
+- Offline mode (cached data)
+
+**Tech Stack**:
+- React Native 0.73
+- TypeScript
+- Redux Toolkit
+- React Navigation
+- React Native Camera
+- React Native Charts
+
+**Dependencies**: Gateway Service (all API calls)
+
+---
+
+## 🔄 Communication Patterns
+
+### Synchronous (REST APIs)
+```
+Mobile App → Gateway → Backend Microservices
+Gateway → Auth Service (token validation)
+```
+
+### Asynchronous (RabbitMQ Events)
+```
+Meal Service     → meal.logged     → Nutrition, Tracking, AI
+AI Service       → goal.achieved   → Notification
+Tracking Service → weight.logged   → AI, Notification
+Meal Service     → meal.reminder   → Notification
+```
+
+---
+
+## 📊 Implementation Status
+
+| Wave | Services | Status | Timeline |
+|------|----------|--------|----------|
+| Wave 1 | Auth, User, Food DB | 🚧 Auth In Dev | Weeks 1-2 |
+| Wave 2 | Meal, Nutrition, Tracking | 📝 Not Started | Weeks 3-5 |
+| Wave 3 | AI, Notification | 📝 Not Started | Weeks 6-8 |
+| Wave 4 | Gateway | 📝 Not Started | Weeks 9-10 |
+| Wave 5 | Mobile App | 📝 Not Started | Weeks 11-15 |
+
+---
+
+## 🔗 Quick Commands
+
+### Clone All Repositories
+```bash
+# Clone documentation
+git clone https://github.com/MateusO97/trainer-hub-docs.git
+
+# Clone backend services
+git clone https://github.com/MateusO97/trainer-hub-auth-service.git
+git clone https://github.com/MateusO97/trainer-hub-user-service.git
+git clone https://github.com/MateusO97/trainer-hub-food-db-service.git
+git clone https://github.com/MateusO97/trainer-hub-meal-service.git
+git clone https://github.com/MateusO97/trainer-hub-nutrition-service.git
+git clone https://github.com/MateusO97/trainer-hub-tracking-service.git
+git clone https://github.com/MateusO97/trainer-hub-ai-service.git
+git clone https://github.com/MateusO97/trainer-hub-notification-service.git
+git clone https://github.com/MateusO97/trainer-hub-gateway.git
+
+# Clone mobile app
+git clone https://github.com/MateusO97/trainer-hub-mobile.git
+```
+
+### View All Repositories
+```bash
+open https://github.com/MateusO97?tab=repositories&q=trainer-hub
+```
+
+---
+
+## 📖 Documentation Resources
+
+- **Architecture Overview**: [docs/01-VISION.md](https://github.com/MateusO97/trainer-hub-docs/blob/master/docs/01-VISION.md)
+- **Microservices Spec**: [docs/05-MICROSERVICES.md](https://github.com/MateusO97/trainer-hub-docs/blob/master/docs/05-MICROSERVICES.md)
+- **API Contracts**: [docs/API-CONTRACTS.md](https://github.com/MateusO97/trainer-hub-docs/blob/master/docs/API-CONTRACTS.md)
+- **Engineering Standards**: [docs/INFRASTRUCTURE/README-ENGINEERING-STANDARDS.md](https://github.com/MateusO97/trainer-hub-docs/blob/master/docs/INFRASTRUCTURE/README-ENGINEERING-STANDARDS.md)
+- **UI/UX Design System**: [docs/INFRASTRUCTURE/UI-UX-DESIGN-SYSTEM.md](https://github.com/MateusO97/trainer-hub-docs/blob/master/docs/INFRASTRUCTURE/UI-UX-DESIGN-SYSTEM.md)
+- **Code Styling Guide**: [docs/INFRASTRUCTURE/CODE-STYLING-LINTING.md](https://github.com/MateusO97/trainer-hub-docs/blob/master/docs/INFRASTRUCTURE/CODE-STYLING-LINTING.md)
+
+---
+
+## 🤝 Contributing
+
+Each repository follows the same standards:
+
+- Conventional commits: `feat:`, `fix:`, `docs:`, `refactor:`
+- All PRs require code review
+- CI/CD must pass (linting, tests, build)
+- Minimum 80% test coverage
+- OpenAPI documentation updated
+
+See [Git Workflow](https://github.com/MateusO97/trainer-hub-docs/blob/master/docs/INFRASTRUCTURE/GIT-WORKFLOW.md) for details.
+
+---
+
+## 📄 License
+
+All repositories: MIT License
 
 ---
 
