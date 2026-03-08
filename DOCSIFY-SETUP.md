@@ -1,21 +1,76 @@
 # 📝 Configuração do GitHub Pages
 
-## Como Habilitar GitHub Pages
+## ⚠️ IMPORTANTE: Habilite GitHub Pages PRIMEIRO
+
+**Antes de rodar o workflow**, você PRECISA habilitar GitHub Pages manualmente:
+
+### Passos Obrigatórios:
 
 1. **Acesse as configurações do repositório**:
-   - Vá em: https://github.com/MateusO97/trainer-hub-docs/settings/pages
+   ```
+   https://github.com/MateusO97/trainer-hub-docs/settings/pages
+   ```
 
-2. **Configure a source**:
+2. **Habilite GitHub Pages**:
    - Em "Build and deployment"
-   - Source: **GitHub Actions**
+   - **Source**: Selecione **"GitHub Actions"** (não "Deploy from a branch")
+   - Clique em "Save" se aparecer o botão
 
-3. **GitHub Actions já configurado**:
-   - O workflow `.github/workflows/deploy-pages.yml` já está configurado
-   - Ele faz deploy automático sempre que houver push na branch `master`
+3. **Aguarde a confirmação**:
+   - Você verá uma mensagem: "GitHub Pages source saved"
+   - Agora o workflow pode rodar com sucesso
 
-4. **Acesse a documentação**:
+4. **Faça o push (ou re-run workflow)**:
+   - Push para `master` ou vá em Actions → Re-run workflow
+   - O deploy rodará automaticamente
+   - Aguarde ~2-3 minutos
+
+5. **Acesse a documentação**:
    - URL: https://mateuso97.github.io/trainer-hub-docs/
    - Pode levar alguns minutos para o primeiro deploy
+
+---
+
+## 🔧 Troubleshooting
+
+### ❌ Erro: "GitHub Pages not enabled"
+
+**Sintoma**:
+```
+Error: Get Pages site failed. Please verify that the repository has Pages 
+enabled and configured to build using GitHub Actions
+```
+
+**Solução**:
+1. Vá em Settings → Pages
+2. Source: **GitHub Actions** (não "Deploy from a branch")
+3. Aguarde 1 minuto
+4. Force novo deploy: Actions → Re-run all jobs
+
+---
+
+### ❌ Erro: "deprecated version of actions/upload-artifact: v3"
+
+**Sintoma**:
+```
+Error: This request has been automatically failed because it uses a 
+deprecated version of `actions/upload-artifact: v3`
+```
+
+**Solução**: ✅ Workflow atualizado! Agora usa `actions/configure-pages@v5`.
+
+---
+
+### ❌ Erro: "Some specified paths were not resolved" (Node.js)
+
+**Sintoma**:
+```
+Error: Some specified paths were not resolved, unable to cache dependencies.
+```
+
+**Solução**: ✅ Workflow corrigido! Não usa mais Node.js (Docsify é HTML estático puro).
+
+---
 
 ## Estrutura Docsify
 
