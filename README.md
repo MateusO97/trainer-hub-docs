@@ -6,6 +6,7 @@ Quick access to all repositories in the Trainer Hub ecosystem.
 
 **Maintainer**: Mateus de Oliveira Barbosa ([@MateusO97](https://github.com/MateusO97))  
 **Last Updated**: 8 de março de 2026
+**Pages**: https://mateuso97.github.io/trainer-hub-docs/
 
 ---
 

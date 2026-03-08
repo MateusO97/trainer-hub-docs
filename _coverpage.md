@@ -12,4 +12,4 @@
 - 🚀 Event-driven com RabbitMQ
 
 [GitHub](https://github.com/MateusO97/trainer-hub-docs)
-[Começar →](README.md)
+[Começar →](#/README)
